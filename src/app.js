@@ -5,7 +5,9 @@ import pool from "./config/db.js"
 
 import { createUsersTable } from "./data/createUsersTable.js"
 import authRoutes from "./routes/authRoutes.js"
+import placesRoutes from "./routes/placesRoutes.js"
 import errorHandler from "./middlewares/errorHandler.js"
+import { authMiddleware } from "./middlewares/authMiddleware.js"
 
 
 const app = express()
@@ -20,6 +22,7 @@ createUsersTable()
 
 //Routes
 app.use("/api/auth", authRoutes)
+app.use("/api/places", authMiddleware, placesRoutes)
 
 //Error Handling
 app.use(errorHandler)
